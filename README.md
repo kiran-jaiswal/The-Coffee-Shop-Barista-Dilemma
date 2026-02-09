@@ -2088,59 +2088,6 @@ mvn jacoco:report
 
 ---
 
-## ❓ FAQ
-
-### General Questions
-
-**Q: Why use dynamic priority over FIFO?**  
-A: FIFO ignores order complexity, customer wait time, and SLA urgency. Our system reduces average wait by 23% and SLA violations by 73%.
-
-**Q: Can I deploy this for my own coffee shop?**  
-A: Absolutely! Follow the [Installation](#-quick-start) guide. We recommend starting with Docker for easiest setup.
-
-**Q: How accurate are the simulations?**  
-A: Validated via 1000 Monte Carlo runs. Results closely match real-world data (±5% variance).
-
-### Technical Questions
-
-**Q: Why Spring Boot instead of Node.js/Flask?**  
-A: Spring's `@Scheduled` annotation provides robust, production-grade task scheduling with minimal configuration.
-
-**Q: Why in-memory storage instead of a database?**  
-A: MVP simplicity. Phase 2 will add PostgreSQL. Current design supports 500+ concurrent orders in memory.
-
-**Q: How does the system handle barista breaks?**  
-A: Baristas can be marked as `unavailable`. Orders redistribute automatically to active baristas.
-
-**Q: Can I customize the priority weights?**  
-A: Yes! Edit `PriorityCalculator.java`:
-```java
-waitScore * 0.40   // Change to 0.50 for more weight on wait time
-complexityScore * 0.25
-urgencyScore * 0.25
-loyaltyScore * 0.10
-```
-
-**Q: What happens if all 3 baristas are busy?**  
-A: Orders remain in the waiting queue. The scheduler assigns them as soon as any barista becomes free.
-
-### Business Questions
-
-**Q: What's the ROI of implementing this system?**  
-A: Based on our simulations:
-- 15% increase in throughput (more orders/hour)
-- 78% reduction in customer abandonment
-- 19-point increase in satisfaction (3.2 → 4.5/5.0)
-- Estimated: +₹50,000/month for average coffee shop
-
-**Q: Does this work for restaurants/other businesses?**  
-A: Yes! The algorithm is domain-agnostic. Just change `DrinkType` to `DishType` and adjust prep times.
-
-**Q: How do customers react to seeing others served first?**  
-A: Transparency is key. The display board shows **reasons** (e.g., "Quick order" or "Approaching 10 min wait"), which builds trust.
-
----
-
 ## 📄 License
 
 This project is licensed under the **MIT License**.
